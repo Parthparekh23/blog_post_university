@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog_app/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p>Created at: {{ post.created_at }}</p>
+        <a href="{% url 'blog_update' post.pk %}">Edit</a>
+        <a href="{% url 'blog_delete' post.pk %}">Delete</a>
+        <a href="{% url 'blog_list' %}">Back to Blog List</a>
+    </div>
+</body>
+</html>
