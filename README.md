@@ -16,6 +16,7 @@ The Blog Project is a web application developed using Django. It implements a si
 - **DIAGRAM**: Drow.io
 
 
+
 ## Prerequisites
 - Python (version 3.8 or higher)
 - Django (version 5.1.4)

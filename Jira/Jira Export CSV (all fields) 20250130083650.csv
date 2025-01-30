@@ -1,0 +1,280 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project lead id,Project description,Priority,Resolution,Assignee,Assignee Id,Reporter,Reporter Id,Creator,Creator Id,Created,Updated,Last Viewed,Resolved,Due date,Votes,Description,Environment,Watchers,Watchers,Watchers Id,Watchers Id,Original estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Security Level,Custom field (Actual end),Custom field (Actual start),Custom field (Change reason),Custom field (Change risk),Custom field (Change type),Custom field (Development),Custom field (Epic Color),Custom field (Epic Name),Custom field (Epic Status),Custom field (Goals),Custom field (Impact),Custom field (Issue color),Custom field (Locked forms),Custom field (Open forms),Custom field (Project overview key),Custom field (Project overview status),Custom field (Rank),Custom field (Request Type),Custom field (Sentiment),Sprint,Custom field (Start date),Custom field (Story Points),Custom field (Story point estimate),Custom field (Submitted forms),Custom field (Target end),Custom field (Target start),Team Id,Team Name,Custom field (Total forms),Custom field (Vulnerability),Custom field ([CHART] Date of First Response),Custom field ([CHART] Time in Status),Comment,Comment,Parent,Parent summary,Status Category,Status Category Changed
+Create Blog Post views section,SCRUM-12,10011,Story,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,29/Jan/25 10:11 PM,29/Jan/25 10:20 PM,30/Jan/25 8:36 AM,29/Jan/25 10:20 PM,,0,,,Parth Parekh,Rashi Sonavani,63ff8d4dc6e77744a1dcf4c0,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,purple,,,,,0|i00027:,,,,,,,,,,,,,,2025-01-29 21:20:29.638,10000_*:*_1_*:*_344885_*|*_10001_*:*_1_*:*_0,"29/Jan/25 10:17 PM;63ff8d4dc6e77744a1dcf4c0;{noformat}def blog_list(request):
+    posts = BlogPost.objects.all()
+    return render(request, 'blog_app/blog_list.html', {'posts': posts})
+
+def blog_detail(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    return render(request, 'blog_app/blog_detail.html', {'post': post})
+
+def blog_create(request):
+    if request.method == ""POST"":
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog_list')
+    else:
+        form = BlogPostForm()
+    return render(request, 'blog_app/blog_form.html', {'form': form}){noformat}","29/Jan/25 10:20 PM;712020:82bada8a-9f23-4599-80a3-ebd20fde49c1;def blog_update(request, pk):
+
+    post = get_object_or_404(BlogPost, pk=pk)
+
+    if request.method == ""POST"":
+
+        form = BlogPostForm(request.POST, instance=post)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('blog_list')
+
+    else:
+
+        form = BlogPostForm(instance=post)
+
+    return render(request, 'blog_app/blog_form.html', {'form': form})
+
+ 
+
+def blog_delete(request, pk):
+
+    post = get_object_or_404(BlogPost, pk=pk)
+
+    if request.method == ""POST"":
+
+        post.delete()
+
+        return redirect('blog_list')
+
+    return render(request, 'blog_app/blog_confirm_delete.html', {'post': post})",10003,Backend Development,Done,29/Jan/25 10:20 PM
+Create BlogPost Model,SCRUM-11,10010,Story,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,29/Jan/25 10:01 PM,29/Jan/25 10:09 PM,30/Jan/25 8:35 AM,29/Jan/25 10:09 PM,,0,"h2. User story
+
+* As a developer, when I create a new blog post, I want to define the {{BlogPost}} model so that I can manage blog content effectively.
+
+h2. Context
+
+This issue involves creating a model for blog posts in the {{blog_app}}. The model will help in structuring the data for blog posts.
+
+h2. Acceptance criteria
+
+* Define the {{BlogPost}} model in {{blog_app/models.py}}.
+* Add the following fields:
+** {{title}} (CharField, max_length=100)
+** {{content}} (TextField)
+** {{created_at}} (DateTimeField, auto_now_add=True)
+* Implement the {{__str__}} method to return the blog post title.
+
+h2. Other information
+
+N/A",,Parth Parekh,Rashi Sonavani,63ff8d4dc6e77744a1dcf4c0,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,purple,,,,,0|i0001z:,,,,,,,,,,,,,,2025-01-29 21:09:21.596,10000_*:*_1_*:*_58283_*|*_10001_*:*_1_*:*_0,"29/Jan/25 10:09 PM;712020:82bada8a-9f23-4599-80a3-ebd20fde49c1;from django.db import models
+
+ 
+
+# Create your models here.
+
+from django.db import models
+
+ 
+
+class BlogPost(models.Model):
+
+    title = models.CharField(max_length=100)
+
+    content = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+ 
+
+    def __str__(self):
+
+        return self.title",,10003,Backend Development,Done,29/Jan/25 10:09 PM
+To Update - html structure in file urls.py,SCRUM-10,10009,Task,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,29/Jan/25 9:55 PM,29/Jan/25 10:00 PM,,29/Jan/25 10:00 PM,,0,,,Rashi Sonavani,,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,,0|i0001r:,,,SCRUM Sprint 1,,,,,,,,,,,,10000_*:*_1_*:*_17527_*|*_10001_*:*_1_*:*_0,,,,,Done,29/Jan/25 10:00 PM
+New Style static css file.,SCRUM-9,10008,Story,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,29/Jan/25 9:51 PM,29/Jan/25 9:59 PM,30/Jan/25 8:34 AM,29/Jan/25 9:59 PM,,0,,,Parth Parekh,,63ff8d4dc6e77744a1dcf4c0,,,,,,,,,,,,,,,,,,,,,purple,,,,,0|i0001j:,,,,,,,,,,,,,,,10000_*:*_1_*:*_477794_*|*_10002_*:*_1_*:*_0,"29/Jan/25 9:52 PM;63ff8d4dc6e77744a1dcf4c0;{code:css}/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 245px;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+form {
+    margin: 20px 0;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+{code}
+
+css update for all pages ",,10002,Frontend Development,Done,29/Jan/25 9:59 PM
+Updated urls.py file ,SCRUM-7,10006,Task,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,18/Jan/25 8:10 PM,29/Jan/25 10:22 PM,30/Jan/25 8:35 AM,29/Jan/25 10:06 PM,,0,update too add urlspatterns for using path ,,Parth Parekh,Rashi Sonavani,63ff8d4dc6e77744a1dcf4c0,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,0|i0001b:,,,SCRUM Sprint 1,,,,,,,,,,,2025-01-29 21:22:13.535,10000_*:*_1_*:*_59044_*|*_10002_*:*_1_*:*_956900136_*|*_10001_*:*_1_*:*_0,"29/Jan/25 10:22 PM;712020:82bada8a-9f23-4599-80a3-ebd20fde49c1;urlpatterns = [
+
+    path('', views.blog_list, name='blog_list'),
+
+    path('<int:pk>/', views.blog_detail, name='blog_detail'),
+
+    path('new/', views.blog_create, name='blog_create'),
+
+    path('<int:pk>/edit/', views.blog_update, name='blog_update'),
+
+    path('<int:pk>/delete/', views.blog_delete, name='blog_delete'),
+
+]
+
+ ",,10003,Backend Development,Done,29/Jan/25 10:06 PM
+"HTML,templates",SCRUM-6,10005,Story,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,18/Jan/25 7:59 PM,29/Jan/25 10:17 PM,30/Jan/25 8:34 AM,18/Jan/25 8:01 PM,,0,"* *DOCTYPE and HTML Tags*: Standard HTML document structure.
+* *Head Section*: Contains the title of the blog post dynamically inserted with {{{{ post.title }}}}, loads static files, and links to the stylesheet.
+* *Body Section*:
+** *Container Div*: Contains the content of the blog post.
+** *Title*: Displays the blog post title.
+** *Content Paragraph*: Displays the content of the blog post.
+** *Created At Paragraph*: Shows the date and time when the blog post was created.
+** *Links*: Provides links to edit, delete, and go back to the blog list, with dynamic URLs based on the post's primary key ({{post.pk}}).",,Parth Parekh,,63ff8d4dc6e77744a1dcf4c0,,,,,,,,,,,,,,,,,,,,,purple,,,,,0|i00013:,,,,,,,,,,,,,,,10000_*:*_1_*:*_134191_*|*_10002_*:*_1_*:*_0,"29/Jan/25 9:50 PM;63ff8d4dc6e77744a1dcf4c0;Blog_detail.html
+
+{noformat}<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    {% load static %}
+    <link rel=""stylesheet"" type=""text/css"" href=""{% static 'blog_app/styles.css' %}"">
+</head>
+<body>
+    <div class=""container"">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p>Created at: {{ post.created_at }}</p>
+        <a href=""{% url 'blog_update' post.pk %}"">Edit</a>
+        <a href=""{% url 'blog_delete' post.pk %}"">Delete</a>
+        <a href=""{% url 'blog_list' %}"">Back to Blog List</a>
+    </div>
+</body>
+</html>
+{noformat}
+
+
+First start",,10002,Frontend Development,Done,18/Jan/25 8:01 PM
+Testing,SCRUM-5,10004,Epic,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,18/Jan/25 7:55 PM,29/Jan/25 10:32 PM,30/Jan/25 8:12 AM,29/Jan/25 10:32 PM,,0,"* *Functional Testing*:
+** Test all CRUD operations for blog posts.
+** Validate user authentication (login, registration, password reset).
+** Ensure the admin interface works as expected.
+* *Performance Testing*:
+** Assess the application's response time under different load conditions.
+** Identify and resolve performance bottlenecks.
+* *Security Testing*:
+** Conduct vulnerability assessments to identify potential security threats.
+** Ensure data protection and secure communication.
+* *Usability Testing*:
+** Evaluate the user experience and interface design.
+** Collect feedback from users to identify areas for improvement.
+* *Automated Testing*:
+** Implement unit tests for backend logic using Django’s testing framework.
+** Create integration tests to ensure different components work together seamlessly.",,Parth Parekh,Rashi Sonavani,63ff8d4dc6e77744a1dcf4c0,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,0|i0000v:,,,,,,,,,,,,,,2025-01-29 21:32:10.36,10000_*:*_1_*:*_956989256_*|*_10002_*:*_1_*:*_3897_*|*_10001_*:*_2_*:*_2710832,"29/Jan/25 10:32 PM;63ff8d4dc6e77744a1dcf4c0;Terminal:
+
+python manage.py runserver
+
+browser http://127.0.0.1:8000",,,,Done,29/Jan/25 10:32 PM
+Backend Development,SCRUM-4,10003,Epic,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,18/Jan/25 7:55 PM,29/Jan/25 9:45 PM,30/Jan/25 8:11 AM,29/Jan/25 9:45 PM,,0,,,Rashi Sonavani,,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,,0|i0000n:,,,,,,,,,,,,,,,10000_*:*_1_*:*_956987644_*|*_10002_*:*_1_*:*_0,,,,,Done,29/Jan/25 9:45 PM
+Frontend Development,SCRUM-3,10002,Epic,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,18/Jan/25 7:46 PM,29/Jan/25 10:33 PM,30/Jan/25 8:34 AM,29/Jan/25 10:33 PM,,0,,,Rashi Sonavani,,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,,0|i0000f:,,,,,,,,,,,,,,,10000_*:*_1_*:*_865388_*|*_10001_*:*_1_*:*_0,,,,,Done,29/Jan/25 10:33 PM
+Project Planning,SCRUM-2,10001,Epic,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,,,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,18/Jan/25 7:46 PM,29/Jan/25 10:16 PM,30/Jan/25 8:34 AM,29/Jan/25 10:16 PM,,0,"*Project Name*: Django Blog Application
+
+*Overview*: The Django Blog Application is a web-based platform that allows users to create, read, update, and delete blog posts. Developed using Django for the backend and HTML/CSS for the frontend, this application includes user authentication, a powerful admin interface, and a clean, responsive design.
+
+
+h3. *Project Goals*:
+
+# Create a user-friendly blog application.
+# Develop an efficient admin interface for managing blog posts and users.
+# Ensure responsive design for optimal user experience across devices.
+
+h3. *Scope*:
+
+# Develop and test all CRUD operations for blog posts.
+# Implement user authentication and admin interface features.
+# Design responsive UI using HTML and CSS.
+
+h3. *Team Roles*:
+
+* *Project Manager*: Oversees project progress and ensures timely delivery.
+* *Backend Developer*: Responsible for Django development and database management.
+* *Frontend Developer*: Designs and implements the UI using HTML and CSS.
+* *QA Engineer*: Tests the application for bugs and ensures quality.
+
+h3. *Timelines*:
+
+* *Week 1-2*: Planning and setup
+* *Week 3-6*: Backend development and database setup
+* *Week 7-10*: Frontend development and responsive design
+* *Week 11-12*: Testing and deployment",,Parth Parekh,Rashi Sonavani,63ff8d4dc6e77744a1dcf4c0,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,0|i00007:,,,,,,,,,,,,,,2025-01-29 20:45:13.363,10000_*:*_2_*:*_957536783_*|*_10002_*:*_1_*:*_1894341,"29/Jan/25 9:45 PM;63ff8d4dc6e77744a1dcf4c0;*Project Name*: Django Blog Application
+
+*Overview*: The Django Blog Application is a web-based platform that allows users to create, read, update, and delete blog posts. The application is developed using Django for the backend and HTML/CSS for the frontend. The project includes user authentication, a powerful admin interface, and a clean, responsive design.",,,,Done,29/Jan/25 10:16 PM
+Set Up Initial React App,SCRUM-1,10000,Story,Done,SCRUM,My Scrum Project,software,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,Medium,Done,Parth Parekh,63ff8d4dc6e77744a1dcf4c0,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,Rashi Sonavani,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,18/Jan/25 7:43 PM,18/Jan/25 8:03 PM,18/Jan/25 7:43 PM,18/Jan/25 8:03 PM,,0,"*Overview*: Set up the initial structure for the React application.
+
+*Tasks*:
+
+* Install necessary dependencies: {{npm install react-dom react react-scripts}}
+* Create {{index.js}} file:
+{code:javascript}import React from ""react"";
+import ReactDOM from ""react-dom/client"";
+import App from ""./components/App"";
+const root = ReactDOM.createRoot(document.getElementById(""root""));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);{code}
+
+*Acceptance Criteria*:
+
+* Application should initialize without errors.
+* {{App}} component is rendered successfully.",,Rashi Sonavani,,712020:82bada8a-9f23-4599-80a3-ebd20fde49c1,,,,,,,,,,,,,,,,,,,,,,,,,,0|hzzzzz:,,,,,,,,,,8ebcd596-1963-42b1-aaac-666017de5ecb,MyTeam,,,,10000_*:*_1_*:*_1225632_*|*_10002_*:*_1_*:*_0,,,,,Done,18/Jan/25 8:03 PM
