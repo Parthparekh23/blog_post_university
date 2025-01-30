@@ -26,7 +26,8 @@ The Blog Project is a web application developed using Django. It implements a si
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/blog_project.git
+git clone https://github.com/Parthparekh23/blog_post_university.git
+
 cd blog_project
 
 
